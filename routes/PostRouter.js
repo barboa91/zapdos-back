@@ -7,4 +7,5 @@ router.post('/',middleware.stripToken,middleware.verifyToken,controller.CreatePo
 router.get('/feed', controller.GetDrawings)
 router.post('/addDrawing',controller.addDrawing)
 router.put('/changePic',controller.updateProf)
+router.delete('/delete/:id',controller.DeletePost)
 module.exports = router

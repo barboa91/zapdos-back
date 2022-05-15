@@ -33,11 +33,17 @@ const UpdatePost = async (req, res) => {
 
 const DeletePost = async (req, res) => {
   try {
-    await Post.destroy({ where: { id: req.params.comment_id } })
-    res.send({ msg: 'Comment Deleted', payload: req.params.comment_id, status: 'Ok' })
-  } catch (error) {
-    throw error
-  }
+    const { id } = req.params;
+    console.log(`this is deleting  ${id}`)
+    const draw = await Drawing.destroy({ where: { id: id }, returning: true })
+    console.log(draw)
+    if (draw) {
+        return res.status(200).json({ draw });
+    }
+    return res.status(404).send('Drawing with the specified ID does not exists');
+} catch (error) {
+    return res.status(500).send(error.message);
+}
 }
 
 const GetDrawings = async (req,res) =>{
