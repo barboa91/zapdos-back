@@ -54,6 +54,15 @@ const GetDrawings = async (req,res) =>{
     throw error
   }
 }
+const GetUserDrawings = async (req,res) =>{
+  try {
+    const { id } = req.params
+    const posts = await Drawing.findAll({ where: { userId: id }, returning: true })
+    res.send(posts)
+  } catch (error) {
+    throw error
+  }
+}
 
 
 
@@ -88,5 +97,6 @@ module.exports = {
   DeletePost,
   GetDrawings,
   addDrawing,
-  updateProf
+  updateProf,
+  GetUserDrawings
 }
